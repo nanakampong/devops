@@ -14,8 +14,8 @@ provider "aws" {
 
 
 
-resource "aws_iam_user" "devops" {
-  name = "nana.a"
+resource "aws_iam_user" "iam_user" {
+  name = "bob"
 
 
 }
