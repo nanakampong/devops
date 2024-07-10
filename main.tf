@@ -5,20 +5,27 @@ terraform {
       version = "5.57.0"
     }
   }
+
+  backend "s3" {
+    bucket = "nanaassignment"
+    key    = "nanaassignment/dev/nana/terraformstate"
+    region = "us-east-1"
+  }
 }
 
+
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
 provider "aws" {
   alias = "west"
-  region = "us-west-1"
+  region = var.region1
 }
 
 
 resource "aws_iam_user" "iam_user" {
-  name = "bob"
+  name = var.iam_user
 
 }
 
@@ -41,7 +48,7 @@ data "aws_iam_policy_document" "terra" {
 }
 
 resource "aws_iam_policy" "policy1" {
-  name   = "bobpolicy1"
+  name   = var.policy1
   path   = "/"
   policy = data.aws_iam_policy_document.terra.json
 }
@@ -56,25 +63,25 @@ resource "aws_iam_user_policy_attachment" "test-attach" {
 
 resource "aws_iam_user_policy_attachment" "test-attach2" {
   user       = aws_iam_user.iam_user.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+  policy_arn = var.policy_arn
  } 
 
 
  resource "aws_instance" "web" {
-  ami           = "ami-04a81a99f5ec58529"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.instance_type
 
   tags = {
-    Name = "bobweb"
+    Name = var.tag
    }
   } 
 
   resource "aws_instance" "web2" {
-  ami           = "ami-0ff591da048329e00"
+  ami           = var.ami2
   provider = aws.west
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   tags = {
-    Name = "bobweb2"
+    Name = var.tag1
    }
   } 
 
