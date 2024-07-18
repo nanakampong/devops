@@ -11,13 +11,13 @@ variable "region1" {
 }
 
 variable "iam_user" {
-  default     = "bob"
+  # default     = "bob"
   type        = string
   description = "iam user"
 }
 
 variable "policy1" {
-  default     = "bobpolicy1"
+  # default     = "bobpolicy1"
   type        = string
   description = "iam user policy"
 }
