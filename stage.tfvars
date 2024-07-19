@@ -1,0 +1,5 @@
+iam_user = "Nana"
+policy1 = "Nana_policy1"
+instance_type = "default_t2"
+tag = "eastweb1"
+tag1 = "westweb1"
